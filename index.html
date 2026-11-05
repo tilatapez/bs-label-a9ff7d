@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Beyond Sarcasm Annotation</title>
+<meta name="robots" content="noindex, nofollow">
+<style>
+  :root { --bg:#f7f7f5; --card:#fff; --ink:#1d1d1f; --mute:#666; --line:#ddd; --acc:#2a5bd7;
+          --n:#6b7280; --aff:#15803d; --agg:#b91c1c; --dist:#7c3aed; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#151517; --card:#1f1f22; --ink:#eee; --mute:#aaa; --line:#333; } }
+  * { box-sizing:border-box; }
+  body { margin:0; font:16px/1.45 system-ui,-apple-system,Segoe UI,sans-serif; background:var(--bg); color:var(--ink); }
+  main { max-width:760px; margin:0 auto; padding:24px 16px 60px; }
+  h1 { font-size:22px; margin:0 0 4px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:20px; margin-top:16px; }
+  .mute { color:var(--mute); font-size:14px; }
+  label.opt { display:block; margin:6px 0; }
+  input[type=text], textarea { width:100%; padding:8px; border:1px solid var(--line); border-radius:8px; background:var(--bg); color:var(--ink); font:inherit; }
+  button { font:inherit; padding:9px 16px; border-radius:8px; border:1px solid var(--line); background:var(--card); color:var(--ink); cursor:pointer; }
+  button.primary { background:var(--acc); color:#fff; border-color:var(--acc); }
+  button:disabled { opacity:.45; cursor:default; }
+  .labels { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:14px 0; }
+  @media (max-width:560px) { .labels { grid-template-columns:1fr; } }
+  .lab { text-align:left; padding:12px; border-width:2px; }
+  .lab b { display:block; }
+  .lab span { font-size:13px; color:var(--mute); }
+  .lab.sel[data-l="Non-Sarcastic"] { border-color:var(--n); background:color-mix(in srgb,var(--n) 14%,var(--card)); }
+  .lab.sel[data-l="Affiliative"] { border-color:var(--aff); background:color-mix(in srgb,var(--aff) 14%,var(--card)); }
+  .lab.sel[data-l="Aggressive"] { border-color:var(--agg); background:color-mix(in srgb,var(--agg) 14%,var(--card)); }
+  .lab.sel[data-l="Distancing"] { border-color:var(--dist); background:color-mix(in srgb,var(--dist) 14%,var(--card)); }
+  audio { width:100%; margin-top:10px; }
+  .row { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+  .spacer { flex:1; }
+  .bar { height:6px; background:var(--line); border-radius:3px; overflow:hidden; margin-top:8px; }
+  .bar i { display:block; height:100%; background:var(--acc); }
+  .pill { display:inline-block; padding:2px 10px; border-radius:99px; border:1px solid var(--line); font-size:13px; }
+  .conf button.sel { background:var(--acc); color:#fff; border-color:var(--acc); }
+  .hidden { display:none; }
+  kbd { border:1px solid var(--line); border-radius:4px; padding:0 5px; font-size:12px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Beyond Sarcasm: audio annotation</h1>
+  <div class="mute">Label each ~10-second clip by the speaker's stance. Read the <a href="GUIDELINES.html" target="_blank">guidelines</a> before you start (5 minutes). Use headphones.</div>
+
+  <!-- Start screen -->
+  <section id="start" class="card">
+    <p><b>Your name or class ID</b> (used only to tell annotators apart)</p>
+    <input id="who" type="text" placeholder="e.g. jsmith">
+    <p><b>Do you understand spoken Levantine or Egyptian Arabic?</b></p>
+    <label class="opt"><input type="radio" name="ar" value="fluent"> Yes, fluently</label>
+    <label class="opt"><input type="radio" name="ar" value="some"> Some (I follow parts of it)</label>
+    <label class="opt"><input type="radio" name="ar" value="none"> No</label>
+    <p class="mute">If you don't understand Arabic, still label the Arabic clips by tone of voice and delivery (see Section 4 of the guidelines). Your answer here is saved with your labels, so this is expected and fine.</p>
+    <button id="go" class="primary" disabled>Start</button>
+    <p class="mute" id="resume"></p>
+  </section>
+
+  <!-- Item screen -->
+  <section id="item" class="card hidden">
+    <div class="row">
+      <span id="pos" class="pill"></span>
+      <span id="lang" class="pill"></span>
+      <span class="spacer"></span>
+      <span class="mute" id="sendstate">Saved</span>
+    </div>
+    <div class="bar"><i id="prog"></i></div>
+    <audio id="aud" controls preload="auto"></audio>
+    <div class="mute">Play the whole clip. Replay as often as you like (<kbd>Space</kbd> plays/pauses).</div>
+
+    <div class="labels" id="labels">
+      <button class="lab" data-l="Non-Sarcastic"><b>1 · Non-Sarcastic</b><span>Means what they say. No clear sarcasm.</span></button>
+      <button class="lab" data-l="Affiliative"><b>2 · Affiliative sarcasm</b><span>Playful, teasing, warm, joking with someone.</span></button>
+      <button class="lab" data-l="Aggressive"><b>3 · Aggressive sarcasm</b><span>Mocking, irritated, contemptuous, hostile.</span></button>
+      <button class="lab" data-l="Distancing"><b>4 · Distancing sarcasm</b><span>Dismissive, resigned, "whatever", checked out.</span></button>
+    </div>
+
+    <div class="row conf" id="conf">
+      <span>How sure are you?</span>
+      <button data-c="1">1 · Guessing</button>
+      <button data-c="2">2 · Fairly sure</button>
+      <button data-c="3">3 · Very sure</button>
+    </div>
+    <p><label><input type="checkbox" id="cant"> I can't judge this clip (no speech, music only, too noisy, several people talking over each other)</label></p>
+    <textarea id="note" rows="2" placeholder="Optional note"></textarea>
+
+    <div class="row" style="margin-top:14px">
+      <button id="back">Back</button>
+      <span class="spacer"></span>
+      
+      <button id="next" class="primary" disabled>Next</button>
+    </div>
+    <p class="mute">Keys: <kbd>1</kbd>–<kbd>4</kbd> label · <kbd>Q</kbd>/<kbd>W</kbd>/<kbd>E</kbd> confidence · <kbd>Enter</kbd> next. Your answers go to Aseel automatically, and progress is saved in this browser: you can close the page and come back on the same device and browser.</p>
+  </section>
+
+  <!-- Done screen -->
+  <section id="done" class="card hidden">
+    <h2 style="margin-top:0">Done. Thank you!</h2>
+    <p><b id="donestate">Sending your answers to Aseel…</b></p>
+    <p class="mute">Please keep this page open until it says "All answers sent". Nothing else to do. Optional backup copy: <span id="fname"></span></p>
+    <div class="row"><button id="dl">Download a backup copy (CSV)</button><button id="review">Go back and review</button></div>
+  </section>
+
+  <p class="mute" style="margin-top:20px">Questions or problems? Contact Aseel Salameh, aseels@umich.edu.</p>
+</main>
+
+<script src="items.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const KEY = "beyond_sarcasm_v02";
+const fresh = () => ({ who:"", ar:"", i:0, ans:{} });
+const load = who => { try { const s = JSON.parse(localStorage.getItem(KEY + ":" + who)); if (s && s.who) return s; } catch (e) {} return null; };
+let st = fresh();
+try { const last = localStorage.getItem(KEY + ":last"); if (last) st = load(last) || st; } catch (e) {}
+const save = () => { try { localStorage.setItem(KEY + ":" + st.who, JSON.stringify(st)); localStorage.setItem(KEY + ":last", st.who); } catch (e) {} };
+let shownAt = 0;
+
+// ---- sending answers to Aseel's Google Sheet ----
+const SHEET_URL = "SHEET_URL_NOT_SET";
+const COLS = ["annotator","arabic_understanding","clip_id","language","label","confidence","cant_judge","note","seconds_spent","saved_at"];
+const QKEY = KEY + ":outbox";
+let outbox = []; try { outbox = JSON.parse(localStorage.getItem(QKEY)) || []; } catch (e) {}
+const keepBox = () => { try { localStorage.setItem(QKEY, JSON.stringify(outbox)); } catch (e) {} };
+const rowOf = a => Object.fromEntries(COLS.map(c => [c, c === "annotator" ? st.who : c === "arabic_understanding" ? st.ar : (a[c] ?? "")]));
+let sending = false;
+function status(t) { const s = $("sendstate"); if (s) s.textContent = t; const d = $("donestate"); if (d) d.textContent = t; }
+async function flush() {
+  if (sending || !outbox.length) { if (!outbox.length) status("All answers sent to Aseel ✓"); return; }
+  sending = true; const batch = outbox.slice(0, 200);
+  try {
+    const r = await fetch(SHEET_URL, { method: "POST", body: JSON.stringify({ rows: batch }) });
+    const j = await r.json(); if (!j.ok) throw new Error("not ok");
+    outbox = outbox.slice(batch.length); keepBox();
+    status(outbox.length ? `Sending… (${outbox.length} left)` : "All answers sent to Aseel ✓");
+  } catch (e) { status(`Not sent yet (${outbox.length} waiting). Check your internet; it retries by itself.`); }
+  sending = false; if (outbox.length) setTimeout(flush, 15000);
+}
+function queue(a) { outbox.push(rowOf(a)); keepBox(); flush(); }
+function sendAll() { for (const it of ITEMS) { const a = st.ans[it.id]; if (a) outbox.push(rowOf(a)); } keepBox(); flush(); }
+flush();
+
+// Start screen
+function startReady() { $("go").disabled = !($("who").value.trim() && document.querySelector("input[name=ar]:checked")); }
+$("who").oninput = startReady;
+document.querySelectorAll("input[name=ar]").forEach(r => r.onchange = startReady);
+if (st.who) {
+  $("who").value = st.who;
+  const r = document.querySelector(`input[name=ar][value="${st.ar}"]`); if (r) r.checked = true;
+  $("resume").textContent = `Welcome back, ${st.who}. You have labeled ${Object.keys(st.ans).length} of ${ITEMS.length} clips.`;
+  startReady();
+}
+$("go").onclick = () => {
+  const who = $("who").value.trim();
+  if (st.who !== who) st = load(who) || fresh();  // another person on the same laptop: load their own progress
+  st.who = who; st.ar = document.querySelector("input[name=ar]:checked").value;
+  save(); $("start").classList.add("hidden"); show();
+};
+
+// Item screen
+function cur() { return st.ans[ITEMS[st.i].id] || {}; }
+function show() {
+  if (st.i >= ITEMS.length) return finish();
+  $("item").classList.remove("hidden"); $("done").classList.add("hidden");
+  const it = ITEMS[st.i], a = cur();
+  $("pos").textContent = `Clip ${st.i + 1} of ${ITEMS.length}`;
+  $("lang").textContent = it.language;
+  $("prog").style.width = (100 * Object.keys(st.ans).length / ITEMS.length) + "%";
+  $("aud").src = it.file; $("aud").play().catch(() => {});
+  document.querySelectorAll(".lab").forEach(b => b.classList.toggle("sel", b.dataset.l === a.label));
+  document.querySelectorAll("#conf button").forEach(b => b.classList.toggle("sel", +b.dataset.c === a.confidence));
+  $("cant").checked = !!a.cant_judge; $("note").value = a.note || "";
+  $("back").disabled = st.i === 0;
+  shownAt = performance.now(); refresh();
+}
+function update(patch) {
+  const id = ITEMS[st.i].id, a = Object.assign({}, cur(), patch);
+  a.clip_id = id; a.language = ITEMS[st.i].language;
+  a.seconds_spent = Math.round(((a.seconds_spent || 0) + (performance.now() - shownAt) / 1000) * 10) / 10;
+  shownAt = performance.now();
+  a.saved_at = new Date().toISOString();
+  st.ans[id] = a; save(); show_sel(a); refresh();
+}
+function show_sel(a) {
+  document.querySelectorAll(".lab").forEach(b => b.classList.toggle("sel", b.dataset.l === a.label));
+  document.querySelectorAll("#conf button").forEach(b => b.classList.toggle("sel", +b.dataset.c === a.confidence));
+}
+function refresh() {
+  const a = cur();
+  $("next").disabled = !(a.cant_judge || (a.label && a.confidence));
+  $("prog").style.width = (100 * Object.keys(st.ans).length / ITEMS.length) + "%";
+}
+document.querySelectorAll(".lab").forEach(b => b.onclick = () => update({ label: b.dataset.l, cant_judge: false }));
+document.querySelectorAll("#conf button").forEach(b => b.onclick = () => update({ confidence: +b.dataset.c }));
+$("cant").onchange = () => update({ cant_judge: $("cant").checked });
+$("note").onchange = () => update({ note: $("note").value });
+$("next").onclick = () => { if ($("next").disabled) return; update({}); queue(st.ans[ITEMS[st.i].id]); st.i++; save(); show(); };
+$("back").onclick = () => { if (st.i > 0) { st.i--; save(); show(); } };
+document.addEventListener("keydown", e => {
+  if ($("item").classList.contains("hidden") || e.target.tagName === "TEXTAREA" || e.target.tagName === "INPUT") return;
+  const labs = ["Non-Sarcastic", "Affiliative", "Aggressive", "Distancing"];
+  if ("1234".includes(e.key)) update({ label: labs[+e.key - 1], cant_judge: false });
+  else if ("qwe".includes(e.key.toLowerCase()) && e.key.length === 1) update({ confidence: "qwe".indexOf(e.key.toLowerCase()) + 1 });
+  else if (e.key === "Enter") $("next").click();
+  else if (e.key === " ") { e.preventDefault(); const au = $("aud"); au.paused ? au.play() : au.pause(); }
+});
+
+// Done screen
+function fname() { return `beyond_sarcasm_v02_labels_${st.who.replace(/[^A-Za-z0-9_-]/g, "_")}.csv`; }
+function finish() {
+  $("item").classList.add("hidden"); $("done").classList.remove("hidden");
+  $("fname").textContent = fname();
+  sendAll();
+}
+$("review").onclick = () => { st.i = ITEMS.length - 1; save(); show(); };
+$("dl").onclick = () => {
+  const cols = ["annotator","arabic_understanding","clip_id","language","label","confidence","cant_judge","note","seconds_spent","saved_at"];
+  const q = v => { v = v == null ? "" : String(v); return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; };
+  const lines = [cols.join(",")];
+  for (const it of ITEMS) {
+    const a = st.ans[it.id]; if (!a) continue;
+    lines.push(cols.map(c => q(c === "annotator" ? st.who : c === "arabic_understanding" ? st.ar : a[c])).join(","));
+  }
+  const blob = new Blob([lines.join("\n") + "\n"], { type: "text/csv" });
+  const link = document.createElement("a"); link.href = URL.createObjectURL(blob); link.download = fname(); link.click();
+};
+</script>
+</body>
+</html>
