@@ -708,5 +708,15 @@ const ITEMS = [
 "id": "EN0221",
 "file": "clips/EN0221.wav",
 "language": "English"
+},
+{
+"id": "EN0224",
+"file": "clips/EN0224.wav",
+"language": "English"
+},
+{
+"id": "EN0223",
+"file": "clips/EN0223.wav",
+"language": "English"
 }
 ];
