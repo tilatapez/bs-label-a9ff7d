@@ -20,11 +20,6 @@ const ITEMS = [
 "language": "Arabic"
 },
 {
-"id": "EN0146",
-"file": "clips/EN0146.wav",
-"language": "English"
-},
-{
 "id": "AR0298",
 "file": "clips/AR0298.wav",
 "language": "Arabic"
@@ -47,16 +42,6 @@ const ITEMS = [
 {
 "id": "EN0181",
 "file": "clips/EN0181.wav",
-"language": "English"
-},
-{
-"id": "EN0177",
-"file": "clips/EN0177.wav",
-"language": "English"
-},
-{
-"id": "EN0172",
-"file": "clips/EN0172.wav",
 "language": "English"
 },
 {
@@ -83,11 +68,6 @@ const ITEMS = [
 "id": "AR0208",
 "file": "clips/AR0208.wav",
 "language": "Arabic"
-},
-{
-"id": "EN0202",
-"file": "clips/EN0202.wav",
-"language": "English"
 },
 {
 "id": "AR0183",
@@ -180,11 +160,6 @@ const ITEMS = [
 "language": "Arabic"
 },
 {
-"id": "EN0167",
-"file": "clips/EN0167.wav",
-"language": "English"
-},
-{
 "id": "AR0245",
 "file": "clips/AR0245.wav",
 "language": "Arabic"
@@ -198,16 +173,6 @@ const ITEMS = [
 "id": "AR0258",
 "file": "clips/AR0258.wav",
 "language": "Arabic"
-},
-{
-"id": "EN0161",
-"file": "clips/EN0161.wav",
-"language": "English"
-},
-{
-"id": "EN0160",
-"file": "clips/EN0160.wav",
-"language": "English"
 },
 {
 "id": "AR0217",
@@ -250,11 +215,6 @@ const ITEMS = [
 "language": "Arabic"
 },
 {
-"id": "EN0216",
-"file": "clips/EN0216.wav",
-"language": "English"
-},
-{
 "id": "AR0206",
 "file": "clips/AR0206.wav",
 "language": "Arabic"
@@ -268,11 +228,6 @@ const ITEMS = [
 "id": "AR0218",
 "file": "clips/AR0218.wav",
 "language": "Arabic"
-},
-{
-"id": "EN0207",
-"file": "clips/EN0207.wav",
-"language": "English"
 },
 {
 "id": "AR0299",
@@ -305,11 +260,6 @@ const ITEMS = [
 "language": "Arabic"
 },
 {
-"id": "EN0213",
-"file": "clips/EN0213.wav",
-"language": "English"
-},
-{
 "id": "EN0182",
 "file": "clips/EN0182.wav",
 "language": "English"
@@ -330,11 +280,6 @@ const ITEMS = [
 "language": "Arabic"
 },
 {
-"id": "EN0190",
-"file": "clips/EN0190.wav",
-"language": "English"
-},
-{
 "id": "EN0168",
 "file": "clips/EN0168.wav",
 "language": "English"
@@ -342,11 +287,6 @@ const ITEMS = [
 {
 "id": "EN0209",
 "file": "clips/EN0209.wav",
-"language": "English"
-},
-{
-"id": "EN0144",
-"file": "clips/EN0144.wav",
 "language": "English"
 },
 {
@@ -360,18 +300,8 @@ const ITEMS = [
 "language": "Arabic"
 },
 {
-"id": "EN0138",
-"file": "clips/EN0138.wav",
-"language": "English"
-},
-{
 "id": "EN0133",
 "file": "clips/EN0133.wav",
-"language": "English"
-},
-{
-"id": "EN0152",
-"file": "clips/EN0152.wav",
 "language": "English"
 },
 {
@@ -402,11 +332,6 @@ const ITEMS = [
 {
 "id": "EN0166",
 "file": "clips/EN0166.wav",
-"language": "English"
-},
-{
-"id": "EN0154",
-"file": "clips/EN0154.wav",
 "language": "English"
 },
 {
@@ -480,11 +405,6 @@ const ITEMS = [
 "language": "Arabic"
 },
 {
-"id": "EN0215",
-"file": "clips/EN0215.wav",
-"language": "English"
-},
-{
 "id": "EN0142",
 "file": "clips/EN0142.wav",
 "language": "English"
@@ -540,21 +460,6 @@ const ITEMS = [
 "language": "English"
 },
 {
-"id": "EN0201",
-"file": "clips/EN0201.wav",
-"language": "English"
-},
-{
-"id": "EN0174",
-"file": "clips/EN0174.wav",
-"language": "English"
-},
-{
-"id": "EN0189",
-"file": "clips/EN0189.wav",
-"language": "English"
-},
-{
 "id": "AR0167",
 "file": "clips/AR0167.wav",
 "language": "Arabic"
@@ -563,11 +468,6 @@ const ITEMS = [
 "id": "AR0234",
 "file": "clips/AR0234.wav",
 "language": "Arabic"
-},
-{
-"id": "EN0193",
-"file": "clips/EN0193.wav",
-"language": "English"
 },
 {
 "id": "AR0296",
@@ -595,11 +495,6 @@ const ITEMS = [
 "language": "Arabic"
 },
 {
-"id": "EN0157",
-"file": "clips/EN0157.wav",
-"language": "English"
-},
-{
 "id": "EN0197",
 "file": "clips/EN0197.wav",
 "language": "English"
@@ -620,11 +515,6 @@ const ITEMS = [
 "language": "Arabic"
 },
 {
-"id": "EN0185",
-"file": "clips/EN0185.wav",
-"language": "English"
-},
-{
 "id": "AR0204",
 "file": "clips/AR0204.wav",
 "language": "Arabic"
@@ -640,16 +530,6 @@ const ITEMS = [
 "language": "English"
 },
 {
-"id": "EN0140",
-"file": "clips/EN0140.wav",
-"language": "English"
-},
-{
-"id": "EN0136",
-"file": "clips/EN0136.wav",
-"language": "English"
-},
-{
 "id": "AR0295",
 "file": "clips/AR0295.wav",
 "language": "Arabic"
@@ -662,11 +542,6 @@ const ITEMS = [
 {
 "id": "EN0145",
 "file": "clips/EN0145.wav",
-"language": "English"
-},
-{
-"id": "EN0194",
-"file": "clips/EN0194.wav",
 "language": "English"
 },
 {
@@ -720,11 +595,6 @@ const ITEMS = [
 "language": "English"
 },
 {
-"id": "EN0151",
-"file": "clips/EN0151.wav",
-"language": "English"
-},
-{
 "id": "AR0194",
 "file": "clips/AR0194.wav",
 "language": "Arabic"
@@ -748,11 +618,6 @@ const ITEMS = [
 "id": "AR0178",
 "file": "clips/AR0178.wav",
 "language": "Arabic"
-},
-{
-"id": "EN0192",
-"file": "clips/EN0192.wav",
-"language": "English"
 },
 {
 "id": "EN0180",
