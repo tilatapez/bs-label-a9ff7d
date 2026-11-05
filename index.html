@@ -118,7 +118,7 @@ const save = () => { try { localStorage.setItem(KEY + ":" + st.who, JSON.stringi
 let shownAt = 0;
 
 // ---- sending answers to Aseel's Google Sheet ----
-const SHEET_URL = "SHEET_URL_NOT_SET";
+const SHEET_URL = "https://script.google.com/macros/s/AKfycbxmn9F8xLRxkajkhWntcGhupMV71Uq51kyfrrSvnhrI-g0xRLYeW0S1-0c3pqyY378FcA/exec";
 const COLS = ["annotator","arabic_understanding","clip_id","language","label","confidence","cant_judge","note","seconds_spent","saved_at"];
 const QKEY = KEY + ":outbox";
 let outbox = []; try { outbox = JSON.parse(localStorage.getItem(QKEY)) || []; } catch (e) {}
